@@ -11,6 +11,7 @@ import { friendlyExpiry } from "@/utils/date";
 import { ChefHat, X, Plus, Package, AlertTriangle, BarChart3, TrendingUp, Heart, Clock, Users } from "lucide-react-native";
 import { router } from "expo-router";
 import { parseAIResponse } from "@/utils/jsonParser";
+import { adMobService } from "@/services/AdMobService";
 
 type ItemProps = {
   id: string;
@@ -66,6 +67,16 @@ export default function TodayScreen() {
   const generateRecipes = async () => {
     if (todayPicks.length === 0) {
       return;
+    }
+
+    // Show interstitial ad every 2nd time
+    try {
+      const adShown = await adMobService.showInterstitialAd();
+      if (adShown) {
+        console.log('Interstitial ad shown for recipe ideas');
+      }
+    } catch (error) {
+      console.error('Error showing ad:', error);
     }
 
     setLoadingRecipes(true);
