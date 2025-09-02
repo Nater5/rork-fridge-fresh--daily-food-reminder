@@ -10,6 +10,7 @@ import CategoryChip from "@/components/CategoryChip";
 import { friendlyExpiry } from "@/utils/date";
 import { ChefHat, X, Plus, Package, AlertTriangle, BarChart3, TrendingUp, Heart, Clock, Users } from "lucide-react-native";
 import { router } from "expo-router";
+import { parseAIResponse } from "@/utils/jsonParser";
 
 type ItemProps = {
   id: string;
@@ -95,15 +96,7 @@ export default function TodayScreen() {
       const data = await response.json();
       
       try {
-        // Clean the response by removing markdown code blocks if present
-        let cleanedResponse = data.completion.trim();
-        if (cleanedResponse.startsWith('```json')) {
-          cleanedResponse = cleanedResponse.replace(/^```json\s*/, '').replace(/\s*```$/, '');
-        } else if (cleanedResponse.startsWith('```')) {
-          cleanedResponse = cleanedResponse.replace(/^```\s*/, '').replace(/\s*```$/, '');
-        }
-        
-        const parsed = JSON.parse(cleanedResponse);
+        const parsed = parseAIResponse(data.completion);
         setRecipes(parsed.recipes || []);
       } catch (parseError) {
         console.error("Failed to parse recipe JSON:", parseError);

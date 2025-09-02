@@ -8,6 +8,7 @@ import GlassCard from '@/components/GlassCard';
 import { useFood } from '@/providers/FoodProvider';
 import { useRecipes, type NutritionInfo } from '@/providers/RecipeProvider';
 import { adMobService } from '@/services/AdMobService';
+import { parseAIResponse } from '@/utils/jsonParser';
 
 type Recipe = {
   title: string;
@@ -72,25 +73,8 @@ export default function RecipesScreen() {
       const data = await response.json();
       
       try {
-        let cleanedResponse = data.completion.trim();
-        
-        // Remove markdown code blocks
-        if (cleanedResponse.startsWith('```json')) {
-          cleanedResponse = cleanedResponse.replace(/^```json\s*/, '').replace(/\s*```$/, '');
-        } else if (cleanedResponse.startsWith('```')) {
-          cleanedResponse = cleanedResponse.replace(/^```\s*/, '').replace(/\s*```$/, '');
-        }
-        
-        // Find JSON object boundaries
-        const jsonStart = cleanedResponse.indexOf('{');
-        const jsonEnd = cleanedResponse.lastIndexOf('}');
-        
-        if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
-          cleanedResponse = cleanedResponse.substring(jsonStart, jsonEnd + 1);
-        }
-        
-        console.log('Attempting to parse JSON:', cleanedResponse.substring(0, 200) + '...');
-        const parsed = JSON.parse(cleanedResponse);
+        console.log('Attempting to parse AI response...');
+        const parsed = parseAIResponse(data.completion);
         setRecipes(parsed.recipes || []);
       } catch (parseError) {
         console.error("Failed to parse recipe JSON:", parseError);
