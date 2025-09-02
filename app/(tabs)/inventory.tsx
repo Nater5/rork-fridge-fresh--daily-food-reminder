@@ -9,6 +9,7 @@ import { useRecipes } from "@/providers/RecipeProvider";
 import CategoryChip from "@/components/CategoryChip";
 import { friendlyExpiry } from "@/utils/date";
 import { Trash2, ChefHat, X, Check, Heart, Clock, Users } from "lucide-react-native";
+import { adMobService } from "@/services/AdMobService";
 
 type Recipe = {
   title: string;
@@ -75,6 +76,13 @@ export default function InventoryScreen() {
     if (selectedItems.size === 0) {
       Alert.alert("No items selected", "Please select at least one item to generate recipes.");
       return;
+    }
+
+    // Show ad before generating recipes
+    try {
+      await adMobService.showInterstitialAd();
+    } catch (error) {
+      console.log('Ad failed to show:', error);
     }
 
     setLoadingRecipes(true);

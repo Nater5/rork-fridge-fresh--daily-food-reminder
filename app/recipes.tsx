@@ -7,6 +7,7 @@ import Colors from '@/constants/colors';
 import GlassCard from '@/components/GlassCard';
 import { useFood } from '@/providers/FoodProvider';
 import { useRecipes, type NutritionInfo } from '@/providers/RecipeProvider';
+import { adMobService } from '@/services/AdMobService';
 
 type Recipe = {
   title: string;
@@ -35,6 +36,13 @@ export default function RecipesScreen() {
       }]);
       setHasGenerated(true);
       return;
+    }
+
+    // Show ad before generating recipes
+    try {
+      await adMobService.showInterstitialAd();
+    } catch (error) {
+      console.log('Ad failed to show:', error);
     }
 
     setLoading(true);
