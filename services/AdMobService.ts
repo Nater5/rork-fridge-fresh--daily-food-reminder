@@ -1,8 +1,7 @@
 import { Platform } from 'react-native';
 
-// AdMob configuration
+// AdMob configuration with your actual IDs
 const ADMOB_CONFIG = {
-  // Your actual AdMob IDs from screenshots
   androidAppId: 'ca-app-pub-3412371770843212~9819228152',
   iosAppId: 'ca-app-pub-3412371770843212~9819228152',
   interstitialAdUnitId: Platform.select({
@@ -12,10 +11,25 @@ const ADMOB_CONFIG = {
   })
 };
 
+// Import AdMob when available (will work after expo-dev-client setup)
+let mobileAds: any = null;
+let InterstitialAd: any = null;
+let AdEventType: any = null;
+
+try {
+  const googleMobileAds = require('react-native-google-mobile-ads');
+  mobileAds = googleMobileAds.default;
+  InterstitialAd = googleMobileAds.InterstitialAd;
+  AdEventType = googleMobileAds.AdEventType;
+} catch (error) {
+  console.log('AdMob not available - using placeholder mode');
+}
+
 class AdMobService {
   private adCounter = 0;
   private readonly adFrequency = 2; // Show ad every 2nd time
   private isAdReady = false;
+  private interstitialAd: any = null;
 
   constructor() {
     this.initializeAds();
@@ -23,12 +37,34 @@ class AdMobService {
 
   private async initializeAds() {
     try {
-      // This will be implemented when you upgrade to expo-dev-client
-      // For now, we'll use a placeholder system
-      console.log('AdMob initialized (placeholder)');
-      this.isAdReady = true;
+      if (mobileAds && Platform.OS !== 'web') {
+        // Initialize AdMob
+        await mobileAds.initialize();
+        
+        // Create interstitial ad
+        this.interstitialAd = InterstitialAd.createForAdRequest(ADMOB_CONFIG.interstitialAdUnitId!);
+        
+        // Load the ad
+        this.interstitialAd.addAdEventListener(AdEventType.LOADED, () => {
+          this.isAdReady = true;
+          console.log('Interstitial ad loaded');
+        });
+        
+        this.interstitialAd.addAdEventListener(AdEventType.ERROR, (error: any) => {
+          console.error('Interstitial ad error:', error);
+          this.isAdReady = false;
+        });
+        
+        this.interstitialAd.load();
+        console.log('AdMob initialized successfully');
+      } else {
+        // Fallback for web or when AdMob is not available
+        console.log('AdMob not available - using placeholder mode');
+        this.isAdReady = true;
+      }
     } catch (error) {
       console.error('Failed to initialize AdMob:', error);
+      this.isAdReady = true; // Allow app to continue
     }
   }
 
@@ -44,21 +80,25 @@ class AdMobService {
     try {
       if (Platform.OS === 'web') {
         // For web, show a simple alert (you can replace with actual web ads)
-        alert('Ad would show here (placeholder for web)');
+        alert('Ad would show here (web placeholder)');
         return true;
       }
 
-      // For mobile in Expo Go, show placeholder
-      console.log('Interstitial ad would show here (placeholder)');
-      
-      // When you upgrade to expo-dev-client, replace this with:
-      // const interstitial = InterstitialAd.createForAdRequest(ADMOB_CONFIG.interstitialAdUnitId!);
-      // await interstitial.show();
-      
-      // For now, just log the config to avoid unused variable warning
-      console.log('AdMob config ready:', ADMOB_CONFIG.interstitialAdUnitId);
-      
-      return true;
+      if (this.interstitialAd && this.isAdReady && mobileAds) {
+        // Show real AdMob interstitial ad
+        await this.interstitialAd.show();
+        
+        // Reload ad for next time
+        this.isAdReady = false;
+        this.interstitialAd.load();
+        
+        console.log('Interstitial ad shown successfully');
+        return true;
+      } else {
+        // Fallback for development or when ads aren't ready
+        console.log('Interstitial ad would show here (placeholder - ad not ready or AdMob not available)');
+        return true;
+      }
     } catch (error) {
       console.error('Failed to show interstitial ad:', error);
       return false;
