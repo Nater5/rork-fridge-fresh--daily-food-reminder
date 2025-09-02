@@ -2,13 +2,13 @@ import { Platform } from 'react-native';
 
 // AdMob configuration
 const ADMOB_CONFIG = {
-  // Replace these with your actual AdMob IDs when you get them
-  androidAppId: 'ca-app-pub-3940256099942544~3347511713', // Test ID
-  iosAppId: 'ca-app-pub-3940256099942544~1458002511', // Test ID
+  // Your actual AdMob IDs
+  androidAppId: 'ca-app-pub-3412371770843212~9819228152',
+  iosAppId: 'ca-app-pub-3412371770843212~9819228152',
   interstitialAdUnitId: Platform.select({
-    android: 'ca-app-pub-3940256099942544/1033173712', // Test ID
-    ios: 'ca-app-pub-3940256099942544/4411468910', // Test ID
-    default: 'ca-app-pub-3940256099942544/1033173712'
+    android: 'ca-app-pub-3412371770843212/8837046873',
+    ios: 'ca-app-pub-3412371770843212/8837046873',
+    default: 'ca-app-pub-3412371770843212/8837046873'
   })
 };
 
