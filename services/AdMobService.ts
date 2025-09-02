@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 
 // AdMob configuration
 const ADMOB_CONFIG = {
-  // Your actual AdMob IDs
+  // Your actual AdMob IDs from screenshots
   androidAppId: 'ca-app-pub-3412371770843212~9819228152',
   iosAppId: 'ca-app-pub-3412371770843212~9819228152',
   interstitialAdUnitId: Platform.select({
