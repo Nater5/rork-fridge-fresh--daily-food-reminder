@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Redirect } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import { ChefHat, Package, Clock, Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Colors from '@/constants/colors';
 import GlassCard from '@/components/GlassCard';
-import { useAuth } from '@/providers/AuthProvider';
 
 const ONBOARDING_KEY = 'has_seen_onboarding';
 
 export default function Index() {
-  const { isAuthenticated, isLoading } = useAuth();
   const [hasSeenOnboarding, setHasSeenOnboarding] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -31,14 +29,15 @@ export default function Index() {
   const completeOnboarding = async () => {
     try {
       await AsyncStorage.setItem(ONBOARDING_KEY, 'true');
-      setHasSeenOnboarding(true);
+      router.replace('/today');
     } catch (error) {
       console.error('Error saving onboarding status:', error);
+      router.replace('/today');
     }
   };
 
-  // Show loading while checking auth and onboarding status
-  if (isLoading || hasSeenOnboarding === null) {
+  // Show loading while checking onboarding status
+  if (hasSeenOnboarding === null) {
     return (
       <View style={styles.loadingContainer}>
         <LinearGradient 
@@ -49,14 +48,9 @@ export default function Index() {
     );
   }
 
-  // If user is authenticated, redirect to main app
-  if (isAuthenticated) {
-    return <Redirect href="/today" />;
-  }
-
-  // If user has seen onboarding, redirect to login
+  // If user has seen onboarding, redirect to main app
   if (hasSeenOnboarding) {
-    return <Redirect href="/login" />;
+    return <Redirect href="/today" />;
   }
 
   // Show onboarding screen
