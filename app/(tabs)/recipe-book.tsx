@@ -162,7 +162,11 @@ export default function RecipeBookScreen() {
           </View>
         )}
 
-        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        <ScrollView 
+          style={styles.scrollView} 
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
           {savedRecipes.length === 0 ? (
             <View style={styles.emptyState}>
               <BookOpen size={64} color={Colors.palette.textSecondary} />
@@ -365,6 +369,9 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     paddingHorizontal: 20,
+  },
+  scrollContent: {
+    paddingBottom: 100,
   },
   emptyState: {
     alignItems: 'center',

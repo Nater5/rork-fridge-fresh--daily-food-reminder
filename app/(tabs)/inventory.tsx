@@ -216,6 +216,7 @@ export default function InventoryScreen() {
           data={filtered}
           keyExtractor={(it) => it.id}
           contentContainerStyle={styles.listContent}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <Row 
               item={item} 
@@ -381,7 +382,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.35)",
   },
-  listContent: { paddingBottom: 60, gap: 12 },
+  listContent: { paddingBottom: 120, gap: 12 },
   empty: { color: Colors.light.textSecondary, textAlign: "center", marginTop: 24 },
   actionButtons: {
     flexDirection: "row",

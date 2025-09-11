@@ -175,7 +175,11 @@ export default function TodayScreen() {
       />
 
       <SafeAreaView style={styles.safeArea}>
-        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        <ScrollView 
+          style={styles.scrollView} 
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.header}>
             <View style={styles.headerCenter}>
               <Text style={styles.headerTitle}>Food Sense</Text>
@@ -377,7 +381,7 @@ export default function TodayScreen() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: Colors.light.background },
   safeArea: { flex: 1 },
-  scrollView: { flex: 1, paddingHorizontal: 20 },
+  scrollView: { paddingHorizontal: 20 },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -507,6 +511,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   recipeBtnText: { color: Colors.palette.textPrimary, fontWeight: "600" as const, fontSize: 16 },
+  scrollContent: { paddingBottom: 100 },
   modalRoot: {
     flex: 1,
     backgroundColor: Colors.light.background,

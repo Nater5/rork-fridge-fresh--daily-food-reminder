@@ -74,7 +74,11 @@ export default function AddScreen() {
       <LinearGradient colors={[Colors.palette.gradientStart, Colors.palette.gradientEnd]} style={StyleSheet.absoluteFill} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} />
 
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={styles.content}>
+        <ScrollView 
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
           <GlassCard>
             <Text style={styles.label}>Name</Text>
             <TextInput
@@ -154,7 +158,7 @@ export default function AddScreen() {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: Colors.light.background },
-  content: { paddingTop: Platform.OS === "ios" ? 110 : 90, paddingHorizontal: 16, paddingBottom: 40, gap: 12 },
+  content: { paddingTop: Platform.OS === "ios" ? 110 : 90, paddingHorizontal: 16, paddingBottom: 100, gap: 12 },
   label: { color: Colors.light.textSecondary, marginBottom: 6, marginTop: 10 },
   input: {
     color: "#fff",
