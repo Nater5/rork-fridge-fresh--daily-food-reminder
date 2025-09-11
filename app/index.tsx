@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Redirect } from 'expo-router';
 import { ChefHat, Package, Clock, Sparkles } from 'lucide-react-native';
@@ -66,7 +66,11 @@ export default function Index() {
       style={styles.container}
     >
       <SafeAreaView style={styles.safeArea}>
-        <View style={styles.content}>
+        <ScrollView 
+          style={styles.scrollView}
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.header}>
             <View style={styles.iconContainer}>
               <ChefHat size={48} color={Colors.palette.textPrimary} />
@@ -112,7 +116,7 @@ export default function Index() {
               <Text style={styles.buttonText}>Get Started</Text>
             </LinearGradient>
           </TouchableOpacity>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -128,10 +132,13 @@ const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
   },
-  content: {
+  scrollView: {
     flex: 1,
+  },
+  content: {
     paddingHorizontal: 20,
     paddingVertical: 40,
+    minHeight: '100%',
     justifyContent: 'space-between',
   },
   header: {
