@@ -39,14 +39,11 @@ export default function TermsOfServiceScreen() {
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>3. User Accounts</Text>
+              <Text style={styles.sectionTitle}>3. No Account Required</Text>
               <Text style={styles.sectionText}>
-                To use certain features of our app, you must create an account. You are responsible for:
+                This app does not require user accounts. All data is stored locally on your device. 
+                You are responsible for backing up your data if needed.
               </Text>
-              <Text style={styles.bulletPoint}>• Maintaining the confidentiality of your account credentials</Text>
-              <Text style={styles.bulletPoint}>• All activities that occur under your account</Text>
-              <Text style={styles.bulletPoint}>• Providing accurate and up-to-date information</Text>
-              <Text style={styles.bulletPoint}>• Notifying us immediately of any unauthorized use</Text>
             </View>
 
             <View style={styles.section}>
@@ -99,8 +96,8 @@ export default function TermsOfServiceScreen() {
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>9. Termination</Text>
               <Text style={styles.sectionText}>
-                We may terminate or suspend your account at any time for violation of these terms. You may 
-                also delete your account at any time through the app settings.
+                You may stop using the app at any time by uninstalling it from your device. 
+                This will delete all locally stored data.
               </Text>
             </View>
 
@@ -126,7 +123,7 @@ export default function TermsOfServiceScreen() {
               <Text style={styles.sectionText}>
                 If you have any questions about these Terms of Service, please contact us at:
               </Text>
-              <Text style={styles.contactText}>support@foodsense.app</Text>
+              <Text style={styles.contactText}>Contact through app store listing</Text>
             </View>
           </GlassCard>
         </ScrollView>

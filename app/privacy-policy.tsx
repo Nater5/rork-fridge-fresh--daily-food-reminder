@@ -21,36 +21,34 @@ export default function PrivacyPolicyScreen() {
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>1. Information We Collect</Text>
               <Text style={styles.sectionText}>
-                We collect information you provide directly to us, such as when you create an account, 
-                add food items to your inventory, or contact us for support. This may include:
+                This app stores all data locally on your device. We do not require accounts or collect personal information. 
+                The only data stored includes:
               </Text>
-              <Text style={styles.bulletPoint}>• Name and email address</Text>
-              <Text style={styles.bulletPoint}>• Food inventory data</Text>
-              <Text style={styles.bulletPoint}>• Dietary preferences and restrictions</Text>
-              <Text style={styles.bulletPoint}>• Usage data and analytics</Text>
+              <Text style={styles.bulletPoint}>• Food inventory items you add</Text>
+              <Text style={styles.bulletPoint}>• Recipes you save</Text>
+              <Text style={styles.bulletPoint}>• App preferences</Text>
+              <Text style={styles.bulletPoint}>• All data stays on your device</Text>
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>2. How We Use Your Information</Text>
+              <Text style={styles.sectionTitle}>2. Advertisements</Text>
               <Text style={styles.sectionText}>
-                We use the information we collect to:
+                This app displays ads through Google AdMob. AdMob may collect:
               </Text>
-              <Text style={styles.bulletPoint}>• Provide and maintain our services</Text>
-              <Text style={styles.bulletPoint}>• Send you expiry notifications</Text>
-              <Text style={styles.bulletPoint}>• Provide personalized recipe recommendations</Text>
-              <Text style={styles.bulletPoint}>• Improve our app and services</Text>
-              <Text style={styles.bulletPoint}>• Communicate with you about updates and support</Text>
+              <Text style={styles.bulletPoint}>• Device information and identifiers</Text>
+              <Text style={styles.bulletPoint}>• Ad interaction data</Text>
+              <Text style={styles.bulletPoint}>• General location (country/region)</Text>
+              <Text style={styles.sectionText}>
+                For more details, see Google's Privacy Policy.
+              </Text>
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>3. Information Sharing</Text>
+              <Text style={styles.sectionTitle}>3. AI Recipe Generation</Text>
               <Text style={styles.sectionText}>
-                We do not sell, trade, or otherwise transfer your personal information to third parties 
-                without your consent, except as described in this policy. We may share information:
+                When you use the AI recipe feature, your selected ingredients are sent to our AI service 
+                to generate recipes. We do not store this data or link it to any user identity.
               </Text>
-              <Text style={styles.bulletPoint}>• With service providers who assist in our operations</Text>
-              <Text style={styles.bulletPoint}>• When required by law or to protect our rights</Text>
-              <Text style={styles.bulletPoint}>• In connection with a business transfer or merger</Text>
             </View>
 
             <View style={styles.section}>
@@ -63,24 +61,15 @@ export default function PrivacyPolicyScreen() {
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>5. Data Retention</Text>
+              <Text style={styles.sectionTitle}>5. Your Data Control</Text>
               <Text style={styles.sectionText}>
-                We retain your personal information for as long as necessary to provide our services 
-                and fulfill the purposes outlined in this policy, unless a longer retention period 
-                is required by law.
+                Since all app data is stored locally on your device, you have complete control. 
+                Uninstalling the app will permanently delete all your data. You can also clear 
+                data through your device settings.
               </Text>
             </View>
 
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>6. Your Rights</Text>
-              <Text style={styles.sectionText}>
-                You have the right to:
-              </Text>
-              <Text style={styles.bulletPoint}>• Access your personal information</Text>
-              <Text style={styles.bulletPoint}>• Correct inaccurate information</Text>
-              <Text style={styles.bulletPoint}>• Delete your account and data</Text>
-              <Text style={styles.bulletPoint}>• Opt out of marketing communications</Text>
-            </View>
+
 
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>7. Children&apos;s Privacy</Text>
@@ -103,7 +92,7 @@ export default function PrivacyPolicyScreen() {
               <Text style={styles.sectionText}>
                 If you have any questions about this privacy policy, please contact us at:
               </Text>
-              <Text style={styles.contactText}>support@foodsense.app</Text>
+              <Text style={styles.contactText}>Contact through app store listing</Text>
             </View>
           </GlassCard>
         </ScrollView>
