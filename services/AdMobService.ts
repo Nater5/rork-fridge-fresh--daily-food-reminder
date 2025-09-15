@@ -32,7 +32,10 @@ class AdMobService {
   private interstitialAd: any = null;
 
   constructor() {
-    this.initializeAds();
+    // Initialize ads without awaiting to avoid async constructor
+    this.initializeAds().catch(error => {
+      console.error('Failed to initialize ads in constructor:', error);
+    });
   }
 
   private async initializeAds() {
