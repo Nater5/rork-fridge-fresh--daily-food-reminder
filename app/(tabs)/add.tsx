@@ -156,26 +156,6 @@ export default function AddScreen() {
             <TouchableOpacity onPress={onSubmit} style={styles.submit} testID="submit-button">
               <Text style={styles.submitText}>Save item</Text>
             </TouchableOpacity>
-
-            {/* Test Ad Button - Remove this after testing */}
-            <TouchableOpacity 
-              onPress={async () => {
-                console.log('Test ad button pressed');
-                console.log('Ad counter:', adMobService.getAdCounter());
-                console.log('Should show ad:', adMobService.shouldShowAd());
-                const result = await adMobService.showInterstitialAd();
-                console.log('Ad test result:', result);
-                if (Platform.OS === 'web') {
-                  Alert.alert('Test Info', 'Check browser console for ad logs');
-                } else {
-                  Alert.alert('Test Info', `Ad counter: ${adMobService.getAdCounter()}, Ad shown: ${result}`);
-                }
-              }} 
-              style={[styles.submit, { backgroundColor: 'rgba(255,100,100,0.3)', marginTop: 8 }]} 
-              testID="test-ad-button"
-            >
-              <Text style={styles.submitText}>Test Ad (Debug)</Text>
-            </TouchableOpacity>
           </GlassCard>
         </ScrollView>
       </KeyboardAvoidingView>
