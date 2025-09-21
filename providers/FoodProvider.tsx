@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import createContextHook from "@nkzw/create-context-hook";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { daysUntil, toISODate } from "@/utils/date";
-import type { Category } from "@/constants/categories";
+import { daysUntil, toISODate } from "../utils/date";
+import type { Category } from "../constants/categories";
 
 export type FoodItem = {
   id: string;

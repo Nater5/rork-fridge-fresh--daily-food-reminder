@@ -12,12 +12,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Colors from "@/constants/colors";
-import GlassCard from "@/components/GlassCard";
-import { CATEGORIES, Category } from "@/constants/categories";
-import { toISODate, isValidISODate } from "@/utils/date";
-import { useFood } from "@/providers/FoodProvider";
-import { adMobService } from "@/services/AdMobService";
+import Colors from "../../constants/colors";
+import GlassCard from "../../components/GlassCard";
+import { CATEGORIES, Category } from "../../constants/categories";
+import { toISODate, isValidISODate } from "../../utils/date";
+import { useFood } from "../../providers/FoodProvider";
+import { adMobService } from "../../services/AdMobService";
 
 type FormState = {
   name: string;

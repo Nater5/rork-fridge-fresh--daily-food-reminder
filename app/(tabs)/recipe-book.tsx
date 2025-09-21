@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Ale
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack } from 'expo-router';
 import { BookOpen, Clock, Users, Trash2, Flame, Search, Filter, SortAsc } from 'lucide-react-native';
-import Colors from '@/constants/colors';
-import GlassCard from '@/components/GlassCard';
-import { useRecipes, type Recipe } from '@/providers/RecipeProvider';
+import Colors from '../../constants/colors';
+import GlassCard from '../../components/GlassCard';
+import { useRecipes, type Recipe } from '../../providers/RecipeProvider';
 
 type SortOption = 'newest' | 'oldest' | 'alphabetical' | 'cookTime';
 type FilterOption = 'all' | 'quick' | 'healthy';

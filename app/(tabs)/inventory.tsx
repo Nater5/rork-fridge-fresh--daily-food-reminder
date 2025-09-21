@@ -2,15 +2,15 @@ import React, { useMemo, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
 import { Alert, FlatList, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, Modal, ScrollView, ActivityIndicator } from "react-native";
-import Colors from "@/constants/colors";
-import GlassCard from "@/components/GlassCard";
-import { useFood, FoodItem } from "@/providers/FoodProvider";
-import { useRecipes } from "@/providers/RecipeProvider";
-import CategoryChip from "@/components/CategoryChip";
-import { friendlyExpiry } from "@/utils/date";
+import Colors from "../../constants/colors";
+import GlassCard from "../../components/GlassCard";
+import { useFood, FoodItem } from "../../providers/FoodProvider";
+import { useRecipes } from "../../providers/RecipeProvider";
+import CategoryChip from "../../components/CategoryChip";
+import { friendlyExpiry } from "../../utils/date";
 import { Trash2, ChefHat, X, Check, Heart, Clock, Users } from "lucide-react-native";
-import { adMobService } from "@/services/AdMobService";
-import { parseAIResponse } from "@/utils/jsonParser";
+import { adMobService } from "../../services/AdMobService";
+import { parseAIResponse } from "../../utils/jsonParser";
 
 type Recipe = {
   title: string;

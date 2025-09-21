@@ -2,16 +2,16 @@ import React, { useMemo, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
 import { FlatList, Platform, StyleSheet, Text, TouchableOpacity, View, Modal, ScrollView, ActivityIndicator, SafeAreaView, Alert } from "react-native";
-import Colors from "@/constants/colors";
-import GlassCard from "@/components/GlassCard";
-import { useFood } from "@/providers/FoodProvider";
-import { useRecipes } from "@/providers/RecipeProvider";
-import CategoryChip from "@/components/CategoryChip";
-import { friendlyExpiry } from "@/utils/date";
+import Colors from "../../constants/colors";
+import GlassCard from "../../components/GlassCard";
+import { useFood } from "../../providers/FoodProvider";
+import { useRecipes } from "../../providers/RecipeProvider";
+import CategoryChip from "../../components/CategoryChip";
+import { friendlyExpiry } from "../../utils/date";
 import { ChefHat, X, Plus, Package, AlertTriangle, BarChart3, TrendingUp, Heart, Clock, Users } from "lucide-react-native";
 import { router } from "expo-router";
-import { parseAIResponse } from "@/utils/jsonParser";
-import { adMobService } from "@/services/AdMobService";
+import { parseAIResponse } from "../../utils/jsonParser";
+import { adMobService } from "../../services/AdMobService";
 
 type ItemProps = {
   id: string;

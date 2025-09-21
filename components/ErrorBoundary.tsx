@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import GlassCard from "./GlassCard";
-import Colors from "@/constants/colors";
+import Colors from "../constants/colors";
 
 type State = { hasError: boolean; message: string | null };
 

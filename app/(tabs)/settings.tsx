@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert } from 'r
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { Settings, FileText, Shield, Info, ExternalLink } from 'lucide-react-native';
-import Colors from '@/constants/colors';
-import GlassCard from '@/components/GlassCard';
+import Colors from '../../constants/colors';
+import GlassCard from '../../components/GlassCard';
 
 export default function SettingsScreen() {
   const handlePrivacyPolicy = () => {
