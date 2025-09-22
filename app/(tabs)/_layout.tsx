@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import Colors from "../../constants/colors";
+import Colors from "@/constants/colors";
 import { CalendarDays, ClipboardList, PlusCircle, BookOpen, Settings } from "lucide-react-native";
 
 export default function TabLayout() {
