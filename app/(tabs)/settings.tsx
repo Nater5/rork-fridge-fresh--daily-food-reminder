@@ -5,7 +5,7 @@ import { router } from 'expo-router';
 import { Settings, FileText, Shield, Info, ExternalLink } from 'lucide-react-native';
 import Colors from '../../constants/colors';
 import GlassCard from '../../components/GlassCard';
-import AdMobTester from '../../components/AdMobTester';
+
 
 export default function SettingsScreen() {
   const handlePrivacyPolicy = () => {
@@ -66,8 +66,6 @@ export default function SettingsScreen() {
               <ExternalLink color={Colors.palette.textSecondary} size={20} />
             </TouchableOpacity>
           </GlassCard>
-
-          <AdMobTester />
 
           <GlassCard style={styles.infoCard}>
             <Text style={styles.infoTitle}>Food Sense</Text>
