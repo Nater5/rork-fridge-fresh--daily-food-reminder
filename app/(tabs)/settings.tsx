@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { Settings, FileText, Shield, Info, ExternalLink } from 'lucide-react-native';
 import Colors from '../../constants/colors';
 import GlassCard from '../../components/GlassCard';
+import AdMobTester from '../../components/AdMobTester';
 
 export default function SettingsScreen() {
   const handlePrivacyPolicy = () => {
@@ -29,6 +30,7 @@ export default function SettingsScreen() {
       style={styles.container}
     >
       <SafeAreaView style={styles.safeArea}>
+        <ScrollView style={styles.scrollView}>
         <View style={styles.content}>
           <View style={styles.header}>
             <Settings color={Colors.palette.textPrimary} size={32} />
@@ -65,12 +67,15 @@ export default function SettingsScreen() {
             </TouchableOpacity>
           </GlassCard>
 
+          <AdMobTester />
+
           <GlassCard style={styles.infoCard}>
             <Text style={styles.infoTitle}>Food Sense</Text>
             <Text style={styles.infoText}>Version 1.0.0</Text>
             <Text style={styles.infoText}>Track your food, reduce waste</Text>
           </GlassCard>
         </View>
+        </ScrollView>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -81,6 +86,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   safeArea: {
+    flex: 1,
+  },
+  scrollView: {
     flex: 1,
   },
   content: {
