@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import React from "react";
 import Colors from "@/constants/colors";
-import { CalendarDays, ClipboardList, PlusCircle, BookOpen, Settings } from "lucide-react-native";
+import { CalendarDays, ClipboardList, PlusCircle, BookOpen, Settings, ShoppingCart } from "lucide-react-native";
 
 export default function TabLayout() {
   return (
@@ -37,9 +37,16 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="shopping-list"
+        options={{
+          title: "Shopping",
+          tabBarIcon: ({ color }) => <ShoppingCart color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="recipe-book"
         options={{
-          title: "Recipe Book",
+          title: "Recipes",
           tabBarIcon: ({ color }) => <BookOpen color={color} />,
         }}
       />

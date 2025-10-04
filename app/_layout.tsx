@@ -9,6 +9,8 @@ import Colors from "@/constants/colors";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { FoodProvider } from "@/providers/FoodProvider";
 import { RecipeProvider } from "@/providers/RecipeProvider";
+import { ShoppingListProvider } from "@/providers/ShoppingListProvider";
+import { WasteTrackingProvider } from "@/providers/WasteTrackingProvider";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -44,7 +46,11 @@ export default function RootLayout() {
           <ErrorBoundary>
             <FoodProvider>
               <RecipeProvider>
-                <RootLayoutNav />
+                <ShoppingListProvider>
+                  <WasteTrackingProvider>
+                    <RootLayoutNav />
+                  </WasteTrackingProvider>
+                </ShoppingListProvider>
               </RecipeProvider>
             </FoodProvider>
           </ErrorBoundary>

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { Settings, FileText, Shield, Info, ExternalLink } from 'lucide-react-native';
+import { Settings, FileText, Shield, Info, ExternalLink, Trash2, Bell } from 'lucide-react-native';
 import Colors from '../../constants/colors';
 import GlassCard from '../../components/GlassCard';
 
@@ -24,6 +24,18 @@ export default function SettingsScreen() {
     );
   };
 
+  const handleWasteStats = () => {
+    router.push('/waste-stats');
+  };
+
+  const handleNotifications = () => {
+    Alert.alert(
+      'Notifications',
+      'Notification settings will be available in a future update. Enable notifications in your device settings to receive expiry alerts.',
+      [{ text: 'OK' }]
+    );
+  };
+
   return (
     <LinearGradient
       colors={[Colors.palette.gradientStart, Colors.palette.gradientEnd]}
@@ -38,6 +50,26 @@ export default function SettingsScreen() {
           </View>
 
           <GlassCard style={styles.menuCard}>
+            <TouchableOpacity style={styles.menuItem} onPress={handleWasteStats}>
+              <View style={styles.menuItemLeft}>
+                <Trash2 color={Colors.palette.textPrimary} size={24} />
+                <Text style={styles.menuItemText}>Waste Statistics</Text>
+              </View>
+              <ExternalLink color={Colors.palette.textSecondary} size={20} />
+            </TouchableOpacity>
+
+            <View style={styles.separator} />
+
+            <TouchableOpacity style={styles.menuItem} onPress={handleNotifications}>
+              <View style={styles.menuItemLeft}>
+                <Bell color={Colors.palette.textPrimary} size={24} />
+                <Text style={styles.menuItemText}>Notifications</Text>
+              </View>
+              <ExternalLink color={Colors.palette.textSecondary} size={20} />
+            </TouchableOpacity>
+
+            <View style={styles.separator} />
+
             <TouchableOpacity style={styles.menuItem} onPress={handlePrivacyPolicy}>
               <View style={styles.menuItemLeft}>
                 <Shield color={Colors.palette.textPrimary} size={24} />

@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { daysUntil, toISODate } from "../utils/date";
 import type { Category } from "../constants/categories";
+import { Alert } from "react-native";
 
 export type FoodItem = {
   id: string;
@@ -74,11 +75,38 @@ export const [FoodProvider, useFood] = createContextHook(() => {
     saveMutate(updated);
   }, [items, saveMutate]);
 
-  const removeItem = useCallback((id: string) => {
+  const removeItem = useCallback((id: string, trackWaste?: boolean) => {
     const updated = items.filter((it) => it.id !== id);
     setItems(updated);
     saveMutate(updated);
   }, [items, saveMutate]);
+
+  const removeItemWithWasteTracking = useCallback((id: string, onWasteTracked?: (item: FoodItem, reason: 'expired' | 'spoiled' | 'other') => void) => {
+    const item = items.find((it) => it.id === id);
+    if (!item) return;
+
+    const days = daysUntil(item.expiryISO);
+    if (days < 0) {
+      Alert.alert(
+        'Track as Waste?',
+        `${item.name} has expired. Would you like to track it as food waste?`,
+        [
+          { text: 'No', style: 'cancel', onPress: () => removeItem(id) },
+          { 
+            text: 'Yes', 
+            onPress: () => {
+              if (onWasteTracked) {
+                onWasteTracked(item, 'expired');
+              }
+              removeItem(id);
+            }
+          },
+        ]
+      );
+    } else {
+      removeItem(id);
+    }
+  }, [items, removeItem]);
 
   const expiringSoon = useMemo(() => {
     const sorted = [...items].sort((a, b) => new Date(a.expiryISO).getTime() - new Date(b.expiryISO).getTime());
@@ -98,8 +126,9 @@ export const [FoodProvider, useFood] = createContextHook(() => {
     addItem,
     updateItem,
     removeItem,
+    removeItemWithWasteTracking,
     expiringSoon,
     overdue,
     todayPicks,
-  }), [items, loadQuery.isLoading, addItem, updateItem, removeItem, expiringSoon, overdue, todayPicks]);
+  }), [items, loadQuery.isLoading, addItem, updateItem, removeItem, removeItemWithWasteTracking, expiringSoon, overdue, todayPicks]);
 });
