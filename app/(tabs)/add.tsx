@@ -11,13 +11,16 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from "react-native";
+import { Scan } from "lucide-react-native";
 import Colors from "../../constants/colors";
 import GlassCard from "../../components/GlassCard";
 import { CATEGORIES, Category } from "../../constants/categories";
 import { toISODate, isValidISODate } from "../../utils/date";
 import { useFood } from "../../providers/FoodProvider";
 import { adMobService } from "../../services/AdMobService";
+import BarcodeScanner from "../../components/BarcodeScanner";
 
 type FormState = {
   name: string;
@@ -38,6 +41,46 @@ export default function AddScreen() {
     expiryISO: today,
     category: "Vegetable",
   });
+
+  const [scannerVisible, setScannerVisible] = useState(false);
+  const [lookingUpProduct, setLookingUpProduct] = useState(false);
+
+  const lookupProductByBarcode = async (barcode: string) => {
+    setLookingUpProduct(true);
+    try {
+      console.log("Looking up barcode:", barcode);
+      const response = await fetch(
+        `https://world.openfoodfacts.org/api/v0/product/${barcode}.json`
+      );
+      const data = await response.json();
+
+      if (data.status === 1 && data.product) {
+        const productName = data.product.product_name || data.product.generic_name || "";
+        if (productName) {
+          setForm((s) => ({ ...s, name: productName }));
+          Alert.alert("Product Found", `Added: ${productName}`);
+        } else {
+          Alert.alert(
+            "Product Found",
+            "Barcode recognized but no product name available. Please enter manually."
+          );
+        }
+      } else {
+        Alert.alert(
+          "Not Found",
+          "Product not found in database. Please enter details manually."
+        );
+      }
+    } catch (e) {
+      console.error("Barcode lookup error", e);
+      Alert.alert(
+        "Lookup Failed",
+        "Could not look up product. Please enter details manually."
+      );
+    } finally {
+      setLookingUpProduct(false);
+    }
+  };
 
   const onSubmit = async () => {
     try {
@@ -62,7 +105,6 @@ export default function AddScreen() {
         category: form.category,
       });
       
-      // Show ad after adding item
       console.log('Attempting to show ad after adding item...');
       const adShown = await adMobService.showInterstitialAd();
       console.log('Ad shown result:', adShown);
@@ -87,15 +129,36 @@ export default function AddScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <GlassCard>
-            <Text style={styles.label}>Name</Text>
-            <TextInput
-              value={form.name}
-              onChangeText={(t) => setForm((s) => ({ ...s, name: t }))}
-              placeholder="e.g., Milk"
-              placeholderTextColor="rgba(255,255,255,0.6)"
-              style={styles.input}
-              testID="name-input"
-            />
+            <View style={styles.nameRow}>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.label}>Name</Text>
+                <TextInput
+                  value={form.name}
+                  onChangeText={(t) => setForm((s) => ({ ...s, name: t }))}
+                  placeholder="e.g., Milk"
+                  placeholderTextColor="rgba(255,255,255,0.6)"
+                  style={styles.input}
+                  testID="name-input"
+                  editable={!lookingUpProduct}
+                />
+              </View>
+              <View style={{ width: 12 }} />
+              <View>
+                <Text style={[styles.label, { opacity: 0 }]}>Scan</Text>
+                <TouchableOpacity
+                  onPress={() => setScannerVisible(true)}
+                  style={styles.scanButton}
+                  disabled={lookingUpProduct}
+                  testID="scan-barcode-button"
+                >
+                  {lookingUpProduct ? (
+                    <ActivityIndicator size="small" color="#fff" />
+                  ) : (
+                    <Scan color="#fff" size={24} />
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
 
             <View style={styles.row}>
               <View style={{ flex: 1 }}>
@@ -159,6 +222,12 @@ export default function AddScreen() {
           </GlassCard>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      <BarcodeScanner
+        visible={scannerVisible}
+        onClose={() => setScannerVisible(false)}
+        onBarcodeScanned={lookupProductByBarcode}
+      />
     </View>
   );
 }
@@ -175,6 +244,18 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.35)",
+  },
+  nameRow: { flexDirection: "row", alignItems: "flex-end" },
+  scanButton: {
+    backgroundColor: Colors.palette.inputBg,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.35)",
+    borderRadius: 12,
+    padding: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 48,
+    width: 48,
   },
   row: { flexDirection: "row" },
   catWrap: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
